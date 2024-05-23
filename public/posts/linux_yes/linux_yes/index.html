@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="起因 从五月份开始我的个人电脑就开始出现不断死机蓝屏无限重启情况，但是我之前一直加班比较多，所以就没管它，但是六月份加班时间少了，我在家里待着的时间就变多了，于是乎修理它成了必须要做的事情。 系统 我一时间找不到这个情况的原因，上网找了一些答案也都不靠谱，但我认为是我系统用了太久的缘故，于是我决定&hellip;刷系统。我个人电脑已经很久没用来存放资料了，重要的东西都放在移动硬盘或者网盘上面，刷机对于我来讲代价并不大，也不用备份什么资料啥的。制作U盘启动项&hellip;下载镜像&hellip;刷入新系统&hellip;搞定。但是我刷完之后才发现，问题并没有得到解决，等个三分钟还是死机重启，这个时候我隐约感觉会不会是硬件的问题，但是我电脑已经过保了，修还是得花钱，我打算先把我能试的方法全都试一遍。然后我把win10的家庭中文版，专业版，企业版通通刷了一遍，问题还在，我还不死心，会不会是win10的问题呢？再然后我决定把电脑刷成了ubuntu试试看，用rufus制作U盘&hellip;下载ubuntu20.04的镜像&hellip;再次刷入系统，哦嚯，开机三分钟又死机了(不过这次么蓝屏，直接黑屏了)。这下子我没辙了，大概率是硬件问题，我这才想起跑到小米笔记本贴吧去看下，结果一看好多和我一样的情况（在这里不得不吐槽下小米的品控是真的LJ）慢慢往下翻了一会，看到有两个评论说，把固态换个插槽或者是重新插拔一下就能解决，我蒙了，搞了一整天白费了啊。立马去楼下五金店买了一套螺丝刀，拆机的时候还搞断了后壳内部的一个卡扣，成功换下固态插到另一个槽，重启，搞定！那现在有个问题，我还要不要切换回win10呢？（重启的时候还是之前的ubuntu）最后决定还是用ubuntu好了，毕竟我在公司也主要是用ubuntu开发，而且bug10真的名不虚传。。 优化 我在公司用的ubuntu18.04，放在虚拟机里面打开的，装好之后也没怎么改过，毕竟外面还有个windows，不管什么操作都还能完成，但是当只有ubuntu的话，不改改还真的没法用。 软件 flameshot 一个超好用的截图编辑软件，相较与系统自带的截图来讲，简直不要太好，截图之后可以编辑，保存，固定图像等等 安装：sudo apt-get install flameshot 打开之后可以设置颜色 可以设置开机启动 软件本身没有提供快捷键来进行截图，但是可以通过设置ubuntu中的快捷键来达到，打开设置-键盘快捷键-+号，名称可以自己定，命令是flameshot gui，快捷键我设置的是ctrl+ Q，设置好开机自启和快捷键之后，就可以很方便的截图了 wine+微信 微信和qq这样的通讯软件必须是要装的，qq还好，有提供linux版本的，但是微信没有，借助于wine，就能达到在linux下运行exe软件的目的 wine是一个能够在多种 POSIX-compliant 操作系统（诸如 Linux，macOS 及 BSD 等）上运行 Windows 应用的兼容层 具体的安装步骤: git clone https://gitee.com/wszqkzqk/deepin-wine-for-ubuntu.git cd deepin-wine-for-ubuntu chmod +x ./install_2.8.22.sh ./install_2.8.22.sh wget https://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.8.65deepin0_i386.deb sudo dpkg -i deepin.com.wechat_2.6.8.65deepin0_i386.deb sudo apt install fonts-wqy-microhei fonts-wqy-zenhei # 解决中文字体变方块的问题 这样装完之后打开为微信扫码就能使用了，但是有个小问题，从界面退出微信和wine之后，还会有wine和微信的进程残留，微信的消息提示音也不会消失（即便已经退出微信了）必须手动kill或者等待关机重启才会消失 torjan-qt5 这是一款能让你更加自由的软件（你懂得），其实还有很多方法，但是我用的这个，亲测有效，具体使用方法可以看torjan-qy5, 我就不多介绍了 Typora 这个是一个markdown编辑器，虽说有很多开发软件就已经支持md的书写了，但是这个颜值高阿，而且写起来很舒服，这篇博客就是用这个写的，安装方法Typora 剩下的一些包括网易云音乐，chrome浏览器之类的都可去官网下载linux版本 界面美化 插件安装 第一步：安装gnome-tweaks sudo apt-get install gnome-tweak-tool 打开的截图如下（图已经是我加上各种优化后的了）： 第二步：chrome浏览器安装GNOME shell integration拓展插件">
+<title>Linux,yes!</title>
+
+<link rel='canonical' href='http://localhost:1313/posts/linux_yes/linux_yes/'>
+
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Linux,yes!">
+<meta property='og:description' content="起因 从五月份开始我的个人电脑就开始出现不断死机蓝屏无限重启情况，但是我之前一直加班比较多，所以就没管它，但是六月份加班时间少了，我在家里待着的时间就变多了，于是乎修理它成了必须要做的事情。 系统 我一时间找不到这个情况的原因，上网找了一些答案也都不靠谱，但我认为是我系统用了太久的缘故，于是我决定&hellip;刷系统。我个人电脑已经很久没用来存放资料了，重要的东西都放在移动硬盘或者网盘上面，刷机对于我来讲代价并不大，也不用备份什么资料啥的。制作U盘启动项&hellip;下载镜像&hellip;刷入新系统&hellip;搞定。但是我刷完之后才发现，问题并没有得到解决，等个三分钟还是死机重启，这个时候我隐约感觉会不会是硬件的问题，但是我电脑已经过保了，修还是得花钱，我打算先把我能试的方法全都试一遍。然后我把win10的家庭中文版，专业版，企业版通通刷了一遍，问题还在，我还不死心，会不会是win10的问题呢？再然后我决定把电脑刷成了ubuntu试试看，用rufus制作U盘&hellip;下载ubuntu20.04的镜像&hellip;再次刷入系统，哦嚯，开机三分钟又死机了(不过这次么蓝屏，直接黑屏了)。这下子我没辙了，大概率是硬件问题，我这才想起跑到小米笔记本贴吧去看下，结果一看好多和我一样的情况（在这里不得不吐槽下小米的品控是真的LJ）慢慢往下翻了一会，看到有两个评论说，把固态换个插槽或者是重新插拔一下就能解决，我蒙了，搞了一整天白费了啊。立马去楼下五金店买了一套螺丝刀，拆机的时候还搞断了后壳内部的一个卡扣，成功换下固态插到另一个槽，重启，搞定！那现在有个问题，我还要不要切换回win10呢？（重启的时候还是之前的ubuntu）最后决定还是用ubuntu好了，毕竟我在公司也主要是用ubuntu开发，而且bug10真的名不虚传。。 优化 我在公司用的ubuntu18.04，放在虚拟机里面打开的，装好之后也没怎么改过，毕竟外面还有个windows，不管什么操作都还能完成，但是当只有ubuntu的话，不改改还真的没法用。 软件 flameshot 一个超好用的截图编辑软件，相较与系统自带的截图来讲，简直不要太好，截图之后可以编辑，保存，固定图像等等 安装：sudo apt-get install flameshot 打开之后可以设置颜色 可以设置开机启动 软件本身没有提供快捷键来进行截图，但是可以通过设置ubuntu中的快捷键来达到，打开设置-键盘快捷键-+号，名称可以自己定，命令是flameshot gui，快捷键我设置的是ctrl+ Q，设置好开机自启和快捷键之后，就可以很方便的截图了 wine+微信 微信和qq这样的通讯软件必须是要装的，qq还好，有提供linux版本的，但是微信没有，借助于wine，就能达到在linux下运行exe软件的目的 wine是一个能够在多种 POSIX-compliant 操作系统（诸如 Linux，macOS 及 BSD 等）上运行 Windows 应用的兼容层 具体的安装步骤: git clone https://gitee.com/wszqkzqk/deepin-wine-for-ubuntu.git cd deepin-wine-for-ubuntu chmod +x ./install_2.8.22.sh ./install_2.8.22.sh wget https://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.8.65deepin0_i386.deb sudo dpkg -i deepin.com.wechat_2.6.8.65deepin0_i386.deb sudo apt install fonts-wqy-microhei fonts-wqy-zenhei # 解决中文字体变方块的问题 这样装完之后打开为微信扫码就能使用了，但是有个小问题，从界面退出微信和wine之后，还会有wine和微信的进程残留，微信的消息提示音也不会消失（即便已经退出微信了）必须手动kill或者等待关机重启才会消失 torjan-qt5 这是一款能让你更加自由的软件（你懂得），其实还有很多方法，但是我用的这个，亲测有效，具体使用方法可以看torjan-qy5, 我就不多介绍了 Typora 这个是一个markdown编辑器，虽说有很多开发软件就已经支持md的书写了，但是这个颜值高阿，而且写起来很舒服，这篇博客就是用这个写的，安装方法Typora 剩下的一些包括网易云音乐，chrome浏览器之类的都可去官网下载linux版本 界面美化 插件安装 第一步：安装gnome-tweaks sudo apt-get install gnome-tweak-tool 打开的截图如下（图已经是我加上各种优化后的了）： 第二步：chrome浏览器安装GNOME shell integration拓展插件">
+<meta property='og:url' content='http://localhost:1313/posts/linux_yes/linux_yes/'>
+<meta property='og:site_name' content='My New Hugo Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='折腾' /><meta property='article:published_time' content='2020-06-27T17:04:01&#43;08:00'/><meta property='article:modified_time' content='2020-06-27T17:04:01&#43;08:00'/>
+<meta name="twitter:title" content="Linux,yes!">
+<meta name="twitter:description" content="起因 从五月份开始我的个人电脑就开始出现不断死机蓝屏无限重启情况，但是我之前一直加班比较多，所以就没管它，但是六月份加班时间少了，我在家里待着的时间就变多了，于是乎修理它成了必须要做的事情。 系统 我一时间找不到这个情况的原因，上网找了一些答案也都不靠谱，但我认为是我系统用了太久的缘故，于是我决定&hellip;刷系统。我个人电脑已经很久没用来存放资料了，重要的东西都放在移动硬盘或者网盘上面，刷机对于我来讲代价并不大，也不用备份什么资料啥的。制作U盘启动项&hellip;下载镜像&hellip;刷入新系统&hellip;搞定。但是我刷完之后才发现，问题并没有得到解决，等个三分钟还是死机重启，这个时候我隐约感觉会不会是硬件的问题，但是我电脑已经过保了，修还是得花钱，我打算先把我能试的方法全都试一遍。然后我把win10的家庭中文版，专业版，企业版通通刷了一遍，问题还在，我还不死心，会不会是win10的问题呢？再然后我决定把电脑刷成了ubuntu试试看，用rufus制作U盘&hellip;下载ubuntu20.04的镜像&hellip;再次刷入系统，哦嚯，开机三分钟又死机了(不过这次么蓝屏，直接黑屏了)。这下子我没辙了，大概率是硬件问题，我这才想起跑到小米笔记本贴吧去看下，结果一看好多和我一样的情况（在这里不得不吐槽下小米的品控是真的LJ）慢慢往下翻了一会，看到有两个评论说，把固态换个插槽或者是重新插拔一下就能解决，我蒙了，搞了一整天白费了啊。立马去楼下五金店买了一套螺丝刀，拆机的时候还搞断了后壳内部的一个卡扣，成功换下固态插到另一个槽，重启，搞定！那现在有个问题，我还要不要切换回win10呢？（重启的时候还是之前的ubuntu）最后决定还是用ubuntu好了，毕竟我在公司也主要是用ubuntu开发，而且bug10真的名不虚传。。 优化 我在公司用的ubuntu18.04，放在虚拟机里面打开的，装好之后也没怎么改过，毕竟外面还有个windows，不管什么操作都还能完成，但是当只有ubuntu的话，不改改还真的没法用。 软件 flameshot 一个超好用的截图编辑软件，相较与系统自带的截图来讲，简直不要太好，截图之后可以编辑，保存，固定图像等等 安装：sudo apt-get install flameshot 打开之后可以设置颜色 可以设置开机启动 软件本身没有提供快捷键来进行截图，但是可以通过设置ubuntu中的快捷键来达到，打开设置-键盘快捷键-+号，名称可以自己定，命令是flameshot gui，快捷键我设置的是ctrl+ Q，设置好开机自启和快捷键之后，就可以很方便的截图了 wine+微信 微信和qq这样的通讯软件必须是要装的，qq还好，有提供linux版本的，但是微信没有，借助于wine，就能达到在linux下运行exe软件的目的 wine是一个能够在多种 POSIX-compliant 操作系统（诸如 Linux，macOS 及 BSD 等）上运行 Windows 应用的兼容层 具体的安装步骤: git clone https://gitee.com/wszqkzqk/deepin-wine-for-ubuntu.git cd deepin-wine-for-ubuntu chmod +x ./install_2.8.22.sh ./install_2.8.22.sh wget https://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.8.65deepin0_i386.deb sudo dpkg -i deepin.com.wechat_2.6.8.65deepin0_i386.deb sudo apt install fonts-wqy-microhei fonts-wqy-zenhei # 解决中文字体变方块的问题 这样装完之后打开为微信扫码就能使用了，但是有个小问题，从界面退出微信和wine之后，还会有wine和微信的进程残留，微信的消息提示音也不会消失（即便已经退出微信了）必须手动kill或者等待关机重启才会消失 torjan-qt5 这是一款能让你更加自由的软件（你懂得），其实还有很多方法，但是我用的这个，亲测有效，具体使用方法可以看torjan-qy5, 我就不多介绍了 Typora 这个是一个markdown编辑器，虽说有很多开发软件就已经支持md的书写了，但是这个颜值高阿，而且写起来很舒服，这篇博客就是用这个写的，安装方法Typora 剩下的一些包括网易云音乐，chrome浏览器之类的都可去官网下载linux版本 界面美化 插件安装 第一步：安装gnome-tweaks sudo apt-get install gnome-tweak-tool 打开的截图如下（图已经是我加上各种优化后的了）： 第二步：chrome浏览器安装GNOME shell integration拓展插件">
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">My New Hugo Site</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/linux_yes/linux_yes/">Linux,yes!</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 27, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="起因">起因
+</h2><p>从五月份开始我的个人电脑就开始出现不断死机蓝屏无限重启情况，但是我之前一直加班比较多，所以就没管它，但是六月份加班时间少了，我在家里待着的时间就变多了，于是乎修理它成了必须要做的事情。</p>
+<h2 id="系统">系统
+</h2><p>我一时间找不到这个情况的原因，上网找了一些答案也都不靠谱，但我认为是我系统用了太久的缘故，于是我决定&hellip;刷系统。我个人电脑已经很久没用来存放资料了，重要的东西都放在移动硬盘或者网盘上面，刷机对于我来讲代价并不大，也不用备份什么资料啥的。制作U盘启动项&hellip;下载镜像&hellip;刷入新系统&hellip;搞定。但是我刷完之后才发现，问题并没有得到解决，等个三分钟还是死机重启，这个时候我隐约感觉会不会是硬件的问题，但是我电脑已经过保了，修还是得花钱，我打算先把我能试的方法全都试一遍。然后我把win10的家庭中文版，专业版，企业版通通刷了一遍，问题还在，我还不死心，会不会是win10的问题呢？再然后我决定把电脑刷成了ubuntu试试看，用rufus制作U盘&hellip;下载ubuntu20.04的镜像&hellip;再次刷入系统，哦嚯，开机三分钟又死机了(不过这次么蓝屏，直接黑屏了)。这下子我没辙了，大概率是硬件问题，我这才想起跑到小米笔记本贴吧去看下，结果一看好多和我一样的情况（在这里不得不吐槽下小米的品控是真的LJ）慢慢往下翻了一会，看到有两个评论说，把固态换个插槽或者是重新插拔一下就能解决，我蒙了，搞了一整天白费了啊。立马去楼下五金店买了一套螺丝刀，拆机的时候还搞断了后壳内部的一个卡扣，成功换下固态插到另一个槽，重启，搞定！那现在有个问题，我还要不要切换回win10呢？（重启的时候还是之前的ubuntu）最后决定还是用ubuntu好了，毕竟我在公司也主要是用ubuntu开发，而且bug10真的名不虚传。。</p>
+<h2 id="优化">优化
+</h2><p>我在公司用的ubuntu18.04，放在虚拟机里面打开的，装好之后也没怎么改过，毕竟外面还有个windows，不管什么操作都还能完成，但是当只有ubuntu的话，不改改还真的没法用。</p>
+<h3 id="软件">软件
+</h3><h4 id="flameshot">flameshot
+</h4><p>一个超好用的截图编辑软件，相较与系统自带的截图来讲，简直不要太好，截图之后可以编辑，保存，固定图像等等</p>
+<p>安装：<code>sudo apt-get install flameshot</code></p>
+<p>打开之后可以设置颜色</p>
+<p><img src="/image1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 1"
+	
+	
+></p>
+<p>可以设置开机启动</p>
+<p><img src="/image2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 2"
+	
+	
+></p>
+<p>软件本身没有提供快捷键来进行截图，但是可以通过设置ubuntu中的快捷键来达到，打开设置-键盘快捷键-+号，名称可以自己定，命令是<code>flameshot gui</code>，快捷键我设置的是<code>ctrl+ Q</code>，设置好开机自启和快捷键之后，就可以很方便的截图了</p>
+<p><img src="/image3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 3"
+	
+	
+></p>
+<h4 id="wine微信">wine+微信
+</h4><p>微信和qq这样的通讯软件必须是要装的，qq还好，有提供linux版本的，但是微信没有，借助于wine，就能达到在linux下运行exe软件的目的</p>
+<p>wine是一个能够在多种 POSIX-compliant 操作系统（诸如 Linux，macOS 及 BSD 等）上运行 Windows 应用的兼容层</p>
+<p>具体的安装步骤:</p>
+<pre tabindex="0"><code>git clone https://gitee.com/wszqkzqk/deepin-wine-for-ubuntu.git
+cd deepin-wine-for-ubuntu
+chmod +x ./install_2.8.22.sh
+./install_2.8.22.sh
+wget https://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.8.65deepin0_i386.deb
+sudo dpkg -i deepin.com.wechat_2.6.8.65deepin0_i386.deb
+sudo apt install fonts-wqy-microhei fonts-wqy-zenhei # 解决中文字体变方块的问题
+</code></pre><p>这样装完之后打开为微信扫码就能使用了，但是有个小问题，从界面退出微信和wine之后，还会有wine和微信的进程残留，微信的消息提示音也不会消失（即便已经退出微信了）必须手动kill或者等待关机重启才会消失</p>
+<h4 id="torjan-qt5">torjan-qt5
+</h4><p>这是一款能让你更加自由的软件（你懂得），其实还有很多方法，但是我用的这个，亲测有效，具体使用方法可以看<a class="link" href="https://github.com/Trojan-Qt5/Trojan-Qt5"  target="_blank" rel="noopener"
+    >torjan-qy5</a>, 我就不多介绍了</p>
+<h4 id="typora">Typora
+</h4><p>这个是一个markdown编辑器，虽说有很多开发软件就已经支持md的书写了，但是这个颜值高阿，而且写起来很舒服，这篇博客就是用这个写的，安装方法<a class="link" href="https://www.typora.io/#linux"  target="_blank" rel="noopener"
+    >Typora</a></p>
+<hr>
+<p>剩下的一些包括网易云音乐，chrome浏览器之类的都可去官网下载linux版本</p>
+<h3 id="界面美化">界面美化
+</h3><h4 id="插件安装">插件安装
+</h4><p>第一步：安装gnome-tweaks</p>
+<p><code>sudo apt-get install gnome-tweak-tool</code></p>
+<p>打开的截图如下（图已经是我加上各种优化后的了）：</p>
+<p><img src="/image4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 4"
+	
+	
+></p>
+<p>第二步：chrome浏览器安装GNOME shell integration拓展插件</p>
+<p>这个需要用到上面提到的自由软件了，打开谷歌商店搜索就能下载，装好后如图：</p>
+<p><img src="/image5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 5"
+	
+	
+></p>
+<p>第三步：本地安装gnome-shell-extensions（非必要）</p>
+<p><code>sudo apt-get install gnome-shell-extensions</code></p>
+<p>这个是一个已经封装好的gnome插件的集合，里面大概包括8-10个插件可用，当然也可以不装，后面一个个装自己喜欢的插件</p>
+<p>装完之后大概是这样</p>
+<p><img src="/image6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="iamge 6"
+	
+	
+></p>
+<p>第四步：去<a class="link" href="https://extensions.gnome.org/"  target="_blank" rel="noopener"
+    >gnome的插件市场</a>找到想要的插件然后下载，页面大概是这样:</p>
+<p><img src="/image7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 7"
+	
+	
+></p>
+<p>进入某个插件的详情页面之后，右边会有一个开关按钮，点击OFF转换为NO，会出现询问是否安装到本地的小弹窗，点击yes</p>
+<p><img src="/image8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 8"
+	
+	
+></p>
+<p>有的时候会有点击了按钮，但是并没有出现弹窗让本地安装，这个时候就需要手动下载了，在上图的版本按钮中选择相应的进行下载，然后将解压出来的文件夹放到本地的<code>/usr/share/gnome-shell/extensions</code>, 这个文件夹里面存的就是已经安装到本地的各种插件，像这样：</p>
+<p><img src="/image9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 9"
+	
+	
+></p>
+<p>通过这样下载下来的插件可以在本地的tweak-tool工具里面进行管理，在ubuntu的所有软件中搜索tweak或者优化就能打开</p>
+<p>推荐下我安装的那些比较有用的插件吧：</p>
+<p>1.User Themes</p>
+<p>这个插件是必须要装的，用来更换ubuntu的主题，图标，字体，开机界面什么的，下面会再次介绍</p>
+<p>2.Topicons Plus</p>
+<p>这个是用来让打开的软件以小图标的方式出现在顶部状态栏的</p>
+<p>3.NetSpeed</p>
+<p>用来显示实时网速</p>
+<p>4.Clipboard indicator（很好用）</p>
+<p>用来保存复制粘贴的记录，比如想一次复制很多条数据，但是不想来来回回的cv，这个插件就能把之前复制过的保存在右上角的下拉选项</p>
+<p>5.dash to dock</p>
+<p>让屏幕的下方的软件列表在应用全屏时隐藏，还能设置显示时候的透明度，但是存在和后续安装的主题发生冲突的问题，会显示出两个dock栏，这个自己决定关不关吧</p>
+<h4 id="主题安装">主题安装
+</h4><p>可以去<a class="link" href="https://www.gnome-look.org/"  target="_blank" rel="noopener"
+    >主题商店</a>选择想要安装的主题，如图：</p>
+<p><img src="/image10.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 10"
+	
+	
+></p>
+<p>其中左侧的这么多选项里面，GTK2和GTK3 Themes代表整体的风格样式，Full Icon Themes指的是图标主题风格，除此之外还有GDM（锁屏样式），Plymouth Themes（开机动画的样式），Wallpapers Gnome（壁纸），不过我就改了GTK和Icon还有壁纸，其他的懒得折腾了</p>
+<p>首先，点进去一个主题，选择对应的文件，如果是GTK主题，那么就把下载解压后的文件放在~/.themes文件夹下（没有就建一个），如图：</p>
+<p><img src="/image11.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 11"
+	
+	
+></p>
+<p>如果下载的是icon主题，就把下载解压后的文件放在~/.icons文件夹下面，比如：</p>
+<p><img src="/image12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 12"
+	
+	
+></p>
+<p>当这些做好之后，重新打开tweak（本地软件搜索tweak或者优化），就能在如下图所示的地方看到刚才导入的主题了，并且可以选择：</p>
+<p><img src="/image13.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 13"
+	
+	
+></p>
+<p>好了，至此大概的优化项就差不多了，可以看下初步的效果：</p>
+<p><img src="/image14.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image 14"
+	
+	
+></p>
+<p>shell的界面设置了半透明，这个本地就能设置，图标主题选择了一款扁平灰色调的主题，感觉还是很不错的</p>
+<h2 id="总结">总结
+</h2><p>这次折腾电脑搞了好几天，从软件到硬件（拆机）都折腾了一遍，什么都是从头开始，照着网上教程来，很多都是猜着来做的，不过最后的结果还是挺好的</p>
+<p>linux比windows的确流畅了不少（mac太贵了），而且很多配置文件自己就能弄，不象windows下一个注册表就搞半天</p>
+<p>总之，这次搞机体验相当不错，如果后面还有继续折腾的地方我也会写点新的东西的，Linux, Yes!</p>
+<p>peace</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%8A%98%E8%85%BE/">折腾</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 My New Hugo Site
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
