@@ -66,8 +66,8 @@ params:
         subtitle: 按时吃饭，早点睡觉
         avatar:
             enabled: true
-            local: false
-            src: /img/dog.png
+            local: true
+            src: img/dog.png
 
     article:
         math: false
